@@ -8,5 +8,6 @@ namespace Tut2.Serializers
     public interface IFileCreator
     {
         void Serialize(HashSet<Student> hashSet, string path);
+        bool IsPathCorrect(string path);
     }
 }

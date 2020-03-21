@@ -11,6 +11,10 @@ namespace Tut2
         public static HashSet<Student> GetStudentsFromCSV(string path)
         {
             FileInfo info = new FileInfo(path);
+            if (!info.Exists)
+            {
+                throw new FileNotFoundException();
+            }
             string line = null;
             var list = new HashSet<Student>(new StudentsComparer()); 
             using (var stream = new StreamReader(info.OpenRead()))
