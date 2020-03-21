@@ -5,6 +5,7 @@ using System.Xml.Serialization;
 
 namespace Tut2.Models
 {
+    
     public class Student
     {
         [XmlAttribute(attributeName: "index")]

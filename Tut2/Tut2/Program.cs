@@ -11,6 +11,11 @@ namespace Tut2
     {
         public static void Main(string[] args)
         {
+            if (args.Length != 3)
+            {
+                Console.WriteLine("Unvalid arguments number!");
+                return;
+            }
             var path = args[0];
             var outputPath = args[1];
             var mode = args[2];
@@ -19,7 +24,7 @@ namespace Tut2
             HashSet<Student> students = new HashSet<Student>();
             try
             {
-                students = CSVFileReader.GetStudentsFromCSV(path);
+                students = CSVFileReader.GetStudentsFromCSV(path, loger);
                 
             } catch (FileNotFoundException exc)
             {
@@ -28,7 +33,8 @@ namespace Tut2
 
             try
             {
-                creator.Serialize(students, outputPath);
+                University university = creator.CreateUniversity(students);
+                creator.Serialize(university, outputPath);
             }
             catch (ArgumentException exc)
             {

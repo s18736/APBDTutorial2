@@ -8,7 +8,7 @@ namespace Tut2
 {
     class CSVFileReader
     {
-        public static HashSet<Student> GetStudentsFromCSV(string path)
+        public static HashSet<Student> GetStudentsFromCSV(string path, ErrorLoger loger)
         {
             FileInfo info = new FileInfo(path);
             if (!info.Exists)
@@ -24,9 +24,14 @@ namespace Tut2
                     Student studentToAdd = Student.CreateFromCsvLine(line);
                     if (studentToAdd == null)
                     {
+                        loger.AddMessage("Invalid input data line: " + line);
                         continue;
                     }
-                    list.Add(studentToAdd);
+                    bool studentIsNotThere = list.Add(studentToAdd);
+                    if (!studentIsNotThere)
+                    {
+                        loger.AddMessage("Duplicate input data line: " + line);
+                    }
                 }
             }
             return list;

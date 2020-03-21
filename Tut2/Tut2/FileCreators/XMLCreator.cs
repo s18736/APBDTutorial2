@@ -12,12 +12,17 @@ namespace Tut2.Serializers
     {
         private static readonly string FileNameRegex = ".*\\.xml";
 
+        public University CreateUniversity(HashSet<Student> students)
+        {
+            return new XMLUniversity(students);
+        }
+
         public bool IsPathCorrect(string path)
         {
             return Regex.Match(path, FileNameRegex).Success;
         }
 
-        public void Serialize(HashSet<Student> list, string path)
+        public void Serialize(University toSerialize, string path)
         {
             if (!IsPathCorrect(path))
             {
@@ -26,8 +31,8 @@ namespace Tut2.Serializers
             else
             {
                 FileStream writer = new FileStream(path, FileMode.Create);
-                XmlSerializer serializer = new XmlSerializer(typeof(HashSet<Student>), new XmlRootAttribute("univeristy"));
-                serializer.Serialize(writer, list);
+                XmlSerializer serializer = new XmlSerializer(typeof(XMLUniversity), new XmlRootAttribute("univeristy"));
+                serializer.Serialize(writer, toSerialize);
             }
             
         }

@@ -7,7 +7,8 @@ namespace Tut2.Serializers
 {
     public interface IFileCreator
     {
-        void Serialize(HashSet<Student> hashSet, string path);
+        void Serialize(University toSerialize, string path);
         bool IsPathCorrect(string path);
+        University CreateUniversity(HashSet<Student> students);
     }
 }
